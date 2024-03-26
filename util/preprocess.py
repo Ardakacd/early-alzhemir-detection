@@ -85,3 +85,8 @@ def replace_with_word_embeddings(dataframe, word_embeddings, columns):
         dataframe = pd.concat([dataframe.reset_index(drop=True),holder_df],axis=1)
 
     return dataframe
+
+def put_the_column_at_end(dataframe,column_name):
+    column_to_move = dataframe.pop(column_name)
+    dataframe[column_name] = column_to_move
+    
