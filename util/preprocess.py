@@ -1,8 +1,16 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 
+# preprocess.py file includes variety of helper functions that can be used for data preprocessing
+# e.g. - normalization, encoding, etc.
+
 """
-TODO
+Def: Below function can be used to ONE-HOT encode desired columns
+Params: 
+-   dataframe : dataframe that is desired to be operated on
+-   encode_list : list of columns (column names - string) to be one-hot encoded 
+Returns:
+- dataframe that consists encoded columns (provided) and already existing columns (concatenated)
 """
 def one_hot_encode(dataframe, encode_list):
     # Select the columns to encode
@@ -22,7 +30,12 @@ def one_hot_encode(dataframe, encode_list):
     return pd.concat([other_columns, df_encoded_onehot], axis=1)
 
 """
-TODO
+Def: sep_column() can be used to seperate one specific column from dataframe (mostly column which is the target column/label)
+Params: 
+-   dataframe : dataframe that is desired to be operated on
+-   column_name : column name (string) to be seperated from the datframe
+Returns:
+- returns X and y where X is the remaining columns of dataframe and y is the single column which is the seperated one
 """
 def sep_column(dataframe, column_name):
     X = dataframe.drop(column_name, axis=1)
@@ -31,7 +44,17 @@ def sep_column(dataframe, column_name):
 
 
 """
-TODO
+Def: min_max_norm() is simply used to apply min-max normalization on selected columns*
+* selected columns - columns that we wish to normalize (e.g. : consists too small/large values)
+Params: 
+-   dataframe : list of dataframes that is desired to be operated on (they will be normalized sequentially)
+-   columns : list of columns (column names - string) to be normalized
+-   min_vals : minimum values of each attribute  
+-   max_vals : maximum values of each attribute  
+** min_vals and max_vals are pandas objects (dictionary-like object such as (att. name : value) pairs)
+Returns:
+- list of dataframes where provided columns of each dataframe is normalized
+(although a value is being returned, operations are actually in-place)
 """
 def min_max_norm(dataframes, columns, min_vals, max_vals):
     
@@ -43,29 +66,19 @@ def min_max_norm(dataframes, columns, min_vals, max_vals):
     return dataframes
 
 """
-TODO
+Def: given dataframe, list of word embeddings and column list - this function simply replaces each columns in the column list
+     with the corresponding word embedding (vector)
+Params: 
+-   dataframe : dataframe that is desired to be operated on
+-   word_embeddings : dictionary consists of "word : vector" pairs
+-   columns : list of columns (column names - string) to be replaced with word embedding vector
+Returns:
+- dataframe where provided columns are replaced with their word embedding vectors
+(although a value is being returned, operations are actually in-place)
+"""
 
-value_dict = {}
-for col in word_embedded_columns:
-    for col_values in X_train[col].unique():
-        value_dict[col_values] = word_embeddings[col_values.lower()].numpy()
-
-gender_column_train = X_train['Gender'].map(value_dict).values.tolist()
-gender_column_test = X_test['Gender'].map(value_dict).values.tolist()
-
-gender_train_dataset = pd.DataFrame()
-gender_test_dataset = pd.DataFrame()
-
-for i in range(100):
-    gender_train_dataset["Gender" + str(i)]  = [column[i] for column in gender_column_train]
-    gender_test_dataset["Gender" + str(i)]  = [column[i] for column in gender_column_test]
-
-X_train.drop("Gender",axis=1,inplace=True)
-X_test.drop("Gender",axis=1,inplace=True)
-
-X_train = pd.concat([X_train.reset_index(drop=True),gender_train_dataset],axis=1)
-X_test = pd.concat([X_test.reset_index(drop=True),gender_test_dataset],axis=1)
-
+"""
+TODO : dimension of vectors is hardcoded (100), it may be implemented in a dynamic way
 """
 
 def replace_with_word_embeddings(dataframe, word_embeddings, columns):
@@ -86,7 +99,16 @@ def replace_with_word_embeddings(dataframe, word_embeddings, columns):
 
     return dataframe
 
+"""
+Def: carry the provided column to the end of the dataframe
+Params: 
+-   dataframe : dataframe that is desired to be operated on
+-   column_name : (string) column name
+Returns:
+- dataframe where provided column is moved to the end (right) of the dataframe
+(although a value is being returned, operations are actually in-place)
+"""
 def put_the_column_at_end(dataframe,column_name):
     column_to_move = dataframe.pop(column_name)
     dataframe[column_name] = column_to_move
-    
+    return dataframe
