@@ -112,3 +112,16 @@ def put_the_column_at_end(dataframe,column_name):
     column_to_move = dataframe.pop(column_name)
     dataframe[column_name] = column_to_move
     return dataframe
+
+"""
+Def: filters the dataframe with respect to given filters
+Params: 
+-   dataframe : dataframe that is desired to be operated on
+-   label_col : column name that represents label
+-   labels : list of labels that will be included in the dataframe
+Returns:
+- dataframe that consists rows that have label reside in given list of labels
+"""
+def filter_by_label(dataframe, label_col, labels):
+    filtered_df = dataframe[dataframe[label_col].isin(labels)]
+    return filtered_df
