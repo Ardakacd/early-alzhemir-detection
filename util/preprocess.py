@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
+import torch
 
 # preprocess.py file includes variety of helper functions that can be used for data preprocessing
 # e.g. - normalization, encoding, etc.
@@ -86,7 +87,17 @@ def replace_with_word_embeddings(dataframe, word_embeddings, columns):
 
     for col in columns:
         for col_values in dataframe[col].unique():
-            value_dict[col_values] = word_embeddings[col_values.lower()].numpy()
+            # if dealing only one word
+            if len(col_values.split()) == 1:
+                value_dict[col_values] = word_embeddings[col_values.lower()].numpy()
+            # if there are multiple words take average of them
+            else:
+                words = col_values.split()
+                embeddings = [word_embeddings[word] for word in words]
+                sum_embeddings = torch.sum(torch.stack(embeddings), dim=0)
+                average_embedding = sum_embeddings / len(words)
+                value_dict[col_values] = average_embedding.numpy()
+
 
         replaced_col = dataframe[col].map(value_dict).values.tolist()
         holder_df = pd.DataFrame()
