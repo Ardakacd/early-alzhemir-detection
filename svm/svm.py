@@ -4,7 +4,6 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report
 from sklearn.decomposition import PCA
-from sklearn.model_selection import GridSearchCV, cross_val_score
 
 class OneVsAllSVM:
     def __init__(self, n_components=2):
@@ -22,7 +21,7 @@ class OneVsAllSVM:
 
         for cls in self.classes:
             y_binary = np.where(y_train == cls, 1, -1)
-            C = 1e2
+            C = 1
             print("C is",C)
             model = SVC(kernel='linear', C=C)
             model.fit(self.X_train, y_binary)
@@ -45,6 +44,7 @@ class OneVsAllSVM:
         return self.classes[np.argmax(decision_function, axis=1)]
 
     def visualize(self):
+        target_names=['Normal cognition', 'Impaired-not-MCI', 'MCI', 'Dementia']
         for i, cls in enumerate(self.classes):
             plt.figure()
             plt.scatter(self.X_train_pca[:, 0], self.X_train_pca[:, 1], c=self.y_train == cls, cmap='viridis', alpha=0.6)
@@ -53,15 +53,14 @@ class OneVsAllSVM:
             x_plot = np.linspace(min(self.X_train_pca[:, 0]), max(self.X_train_pca[:, 0]), 200)
             y_plot = -(w[0] / w[1]) * x_plot - b / w[1]
             plt.plot(x_plot, y_plot, 'r')
-            plt.title(f"Class {cls} vs All")
+            plt.title(f"{target_names[cls]} vs All")
             plt.xlabel('PCA Component 1')
             plt.ylabel('PCA Component 2')
-            plt.legend([f'Margin {cls}'], loc='best')
             plt.show()
 
     def report(self, X_test, y_test):
         y_pred = self.predict(X_test)
-        report = classification_report(y_test, y_pred, target_names=[f'Class {cls}' for cls in self.classes])
+        report = classification_report(y_test, y_pred, target_names=['Normal cognition', 'MCI', 'Dementia'])
         print(report)
         return report
 

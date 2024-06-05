@@ -29,8 +29,8 @@ class Clustering:
         self.X_test_pca = self.pca.transform(self.X_test_scaled)
 
         # Generate classification reports
-        self.train_classification_report = classification_report(y_train, self.train_labels_, target_names=['Normal cognition', 'Impaired-not-MCI', 'MCI', 'Dementia'])
-        self.test_classification_report = classification_report(y_test, self.test_labels_, target_names=['Normal cognition', 'Impaired-not-MCI', 'MCI', 'Dementia'])
+        self.train_classification_report = classification_report(y_train, self.train_labels_, target_names=['Normal cognition', 'MCI', 'Dementia'])
+        self.test_classification_report = classification_report(y_test, self.test_labels_, target_names=['Normal cognition',  'MCI', 'Dementia'])
     
     def visualize(self, dataset='train'):
         if dataset == 'train':
