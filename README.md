@@ -1,6 +1,6 @@
 # Early Alzheimer Detection with Multiple Modalities
 
-![492_poster_page-0001](https://github.com/user-attachments/assets/d68ff872-3b0b-4490-8e90-74daac15de7e)
+![492_poster_page-0001 (1)](https://github.com/user-attachments/assets/a4c15d7e-6b28-41b1-b518-fc88af099e94)
 
 
 ### Introduction
