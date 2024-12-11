@@ -1,5 +1,7 @@
 # Early Alzheimer Detection with Multiple Modalities
 
+### Final Report of the project can be viewed via visiting [here](https://www.overleaf.com/read/jdzwrhdwyxqh#67ae8c)
+
 ![492_poster_page-0001 (1)](https://github.com/user-attachments/assets/a4c15d7e-6b28-41b1-b518-fc88af099e94)
 
 
