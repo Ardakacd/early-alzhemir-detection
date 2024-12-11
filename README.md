@@ -1,5 +1,8 @@
 # Early Alzheimer Detection with Multiple Modalities
 
+![492_poster_page-0001](https://github.com/user-attachments/assets/d68ff872-3b0b-4490-8e90-74daac15de7e)
+
+
 ### Introduction
 In this project, we delve into the realm of multi-modal representation learning, focusing on its application in healthcare. Collaborating closely, we navigate through the complexities of training deep models, extracting word embeddings, and preprocessing diverse tabular data types, all essential components for tackling the complexities of early Alzheimer's detection. As we progress, our journey will result in the design of a sophisticated deep network adept at seamlessly integrating representations from multiple modalities.
 
